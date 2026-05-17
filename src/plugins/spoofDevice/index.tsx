@@ -18,9 +18,9 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { Card } from "@components/Card";
-import { Forms, UserStore } from "@webpack/common";
 import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
+import { Forms, UserStore } from "@webpack/common";
 
 const settings = definePluginSettings({
     platform: {
@@ -34,7 +34,7 @@ const settings = definePluginSettings({
             { label: "Android", value: "android" },
             { label: "iOS", value: "ios" },
             { label: "Xbox", value: "xbox" },
-            { label: "Playstation", value: "playstation" },
+            { label: "PlayStation", value: "playstation" },
             { label: "VR", value: "vr" },
         ]
     }
@@ -51,7 +51,7 @@ export default definePlugin({
         <Card variant="warning">
             <Forms.FormTitle tag="h3">Warning</Forms.FormTitle>
             <Forms.FormText>
-                USE AT YOUR OWN RISK! It is unknown if this can get you banned.
+                Use at your own risk! It is unknown if this can get you banned.
             </Forms.FormText>
         </Card>
     ),
@@ -75,22 +75,22 @@ export default definePlugin({
     getPlatform(bypass: boolean, userId?: string) {
         const platform = settings.store.platform ?? "desktop";
 
-        if (bypass || userId === UserStore.getCurrentUser().id) {
+        if (bypass || userId === UserStore.getCurrentUser()?.id) {
             switch (platform) {
                 case "desktop":
                     return { browser: "Discord Client" };
                 case "web":
                     return { browser: "Discord Web" };
                 case "ios":
-                    return { browser: "Discord iOS" };
+                    return { browser: "Discord iOS", os: "iOS" };
                 case "android":
-                    return { browser: "Discord Android" };
+                    return { browser: "Discord Android", os: "Android" };
                 case "xbox":
-                    return { browser: "Discord Embedded" };
+                    return { browser: "Discord Embedded", os: "Xbox" };
                 case "playstation":
-                    return { browser: "Discord Embedded" };
+                    return { browser: "Discord Embedded", os: "PlayStation" };
                 case "vr":
-                    return { browser: "Discord VR" };
+                    return { browser: "Discord VR", os: "VR" };
                 default:
                     return null;
             }
